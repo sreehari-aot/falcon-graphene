@@ -1,12 +1,17 @@
-from typing import List, AnyStr
+import os
 import requests
 
 from schema import CountrySchema
 from model import Country
-from mongoengine import connect
+from typing import List, AnyStr
 
-API_URL = "https://restcountries.com/v3.1/all"
-CONNECTION_STRING= "mongodb://mongoadmin:secret@192.168.82.1:27017/"
+from mongoengine import connect
+from dotenv import find_dotenv, load_dotenv
+
+load_dotenv(find_dotenv())
+
+API_URL = os.getenv("API_URL")
+CONNECTION_STRING= os.getenv("CONNECTION_STRING")
 
 def fetch_data(url: AnyStr) -> List:
     """Fetch the data from the given API and validate."""
