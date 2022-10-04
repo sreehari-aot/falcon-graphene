@@ -4,6 +4,8 @@ from mongoengine import Document, ListField, StringField, IntField, DictField, F
 class Country(Document):
     """Defines fields for the country."""
     
+    meta = {'collection': 'Countries'}
+
     name = DictField(required=True)
     currencies = DictField(required=False)
     capital = ListField(StringField(), required=False)
