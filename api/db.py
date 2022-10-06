@@ -2,7 +2,7 @@ import os
 from mongoengine import connect
 
 def connect_to_database():
-    """Conects to a mongo instance given a valid connection string"""
+    """Conects to a mongo instance."""
     try:
         print("Establishing connection to database...")
         connection = connect(
