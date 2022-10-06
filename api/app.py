@@ -1,22 +1,21 @@
-from wsgiref.simple_server import make_server
-
 import falcon
+from wsgiref.simple_server import make_server
+from db import connect_to_database
+from resource import CountryResource
+from dotenv import find_dotenv, load_dotenv
 
-class CheckpointResource:
-    def on_get(self, req, resp):
-        """Handles GET requests"""
-        resp.status = falcon.HTTP_200  # This is the default status
-        resp.content_type = falcon.MEDIA_JSON  # Default is JSON, so override
-        resp.media = {"message": "Falcon is serving"}
+load_dotenv(find_dotenv())
 
 app = falcon.App()
-checkpoint = CheckpointResource()
-app.add_route('/checkpoint', checkpoint)
+
+connect_to_database()
+
+checkpoint = CountryResource()
+
+app.add_route('/', checkpoint)
 
 
 if __name__ == '__main__':
     with make_server('', 8000, app) as httpd:
         print('Serving on port 8000...')
-
-        # Serve until process is killed
         httpd.serve_forever()

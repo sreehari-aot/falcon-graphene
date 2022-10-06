@@ -1,17 +1,16 @@
 import os
 import requests
 
-from schema import CountrySchema
-from model import Country
-from typing import List, AnyStr
-
-from mongoengine import connect
 from dotenv import find_dotenv, load_dotenv
+from typing import List, AnyStr
+from schema import CountrySchema
+from api.model import Country
+from api.db import connect_to_database
 
 load_dotenv(find_dotenv())
 
+#Datasource
 API_URL = os.getenv("API_URL")
-CONNECTION_STRING= os.getenv("CONNECTION_STRING")
 
 def fetch_data(url: AnyStr) -> List:
     """Fetch the data from the given API and validate."""
@@ -23,16 +22,6 @@ def fetch_data(url: AnyStr) -> List:
     data = schema.load(response.json(), many=True)
     return data
 
-def connect_to_database(connection_string: AnyStr):
-    """Conects to a mongo instance given a valid connection string"""
-    try:
-        print("Establishing connection to database...")
-        connection = connect(host=connection_string)
-        print("Connected to database successfully")
-        return connection
-    except Exception as conn_err:
-        print("Connection failed!")
-        raise Exception(conn_err)
 
 def save_to_database(data: List) -> None:
     """Persist the given data in the database."""
@@ -46,5 +35,5 @@ def save_to_database(data: List) -> None:
 
 if __name__ == "__main__":
     data = fetch_data(API_URL)
-    connect_to_database(connection_string=CONNECTION_STRING)
+    connect_to_database()
     save_to_database(data)
