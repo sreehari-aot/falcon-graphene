@@ -1,5 +1,6 @@
-from math import inf
 import graphene
+
+from math import inf
 from graphene.relay import Node
 from graphene_mongo import MongoengineObjectType
 from model import Country as CountryModel
