@@ -1,4 +1,4 @@
-# Getstarted
+# Get started
 1. Stand up a mongo instance
 
       Docker:-
