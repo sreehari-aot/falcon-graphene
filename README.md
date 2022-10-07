@@ -74,7 +74,7 @@
           }
           ```
        
-       - countriesByLanguage - take a language string and return a list of countries speaking that language
+      - countriesByLanguage - take a language string and return a list of countries speaking that language
        
           ```
           query {
